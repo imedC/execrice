@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale_button_visibility_inherit" model="ir.ui.view">
+        <field name="name">sale.button.visib.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_cancel']" position="replace">
+                <button name="action_cancel" type="object" attrs="{'invisible':['|',('state','=','cancel'),('check_group', '=',False)]}" string="Cancel"/>
+            </xpath>
+
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="check_group" invisible="0"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
+

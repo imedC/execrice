@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <record id="sale_action_lock_order" model="ir.actions.server">
+        <field name="name">Lock order</field>
+        <field name="condition">True</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">
+            if records:
+                action = records.action_done()
+        </field>
+    </record>
+    <record id="action_sale_unlock" model="ir.values">
+        <field name="name">Lock orders</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="value" eval="'ir.actions.server,' + str(ref('sale_action_lock_order'))"/>
+        <field name="key">action</field>
+        <field name="key2">client_action_multi</field>
+        <field name="model">sale.order</field>
+    </record>
+</odoo>

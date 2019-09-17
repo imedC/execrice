@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!--    <record id="view_actual_user_form" model="ir.ui.view">-->
+<!--        <field name="name">res.users.actual.form</field>-->
+<!--        <field name="model">res.users</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form string="User">-->
+<!--                <sheet>-->
+<!--                    <field name="id" invisible="1" modifiers="{'invisible': true, 'readonly': true}"/>-->
+<!--                    <field name="image" widget='image' class="oe_avatar" options='{"preview_image": "image_medium"}'/>-->
+<!--                    <div class="oe_title">-->
+
+<!--                        <label for="user_connected"/>-->
+<!--                        <h1>-->
+<!--                            <field name="user_connected" required="1"/>-->
+<!--                        </h1>-->
+<!--                        <field name="email" invisible="1"/>-->
+<!--                        <label for="own_email" class="oe_edit_only" string="Email Address"/>-->
+<!--                        <h1>-->
+<!--                            <field name="own_email"/>-->
+<!--                        </h1>-->
+
+<!--                        <group>-->
+<!--                            <field name="partner_id" readonly="1" required="0" groups="base.group_no_one"-->
+<!--                                   attrs="{'invisible': [('id', '=', False)]}"/>-->
+<!--                        </group>-->
+<!--                    </div>-->
+<!--                    <notebook colspan="4">-->
+<!--                        <page string="Preferences">-->
+<!--                            <group>-->
+<!--                                <group string="Localization" name="preferences">-->
+<!--                                    <field name="lang"/>-->
+<!--                                    <field name="tz" widget="timezone_mismatch"-->
+<!--                                           options="{'tz_offset_field': 'tz_offset'}"/>-->
+<!--                                    <field name="tz_offset" invisible="1"/>-->
+<!--                                </group>-->
+<!--                                <group string="Menus Customization" groups="base.group_no_one">-->
+<!--                                    <field name="action_id"/>-->
+<!--                                </group>-->
+<!--                            </group>-->
+<!--                            <group string="Messaging and Social" name="messaging">-->
+<!--                                <field name="signature"/>-->
+<!--                            </group>-->
+<!--                        </page>-->
+<!--                    </notebook>-->
+<!--                </sheet>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="action_res_actual_user" model="ir.actions.act_window">-->
+<!--        <field name="name">Actual user</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">res.users</field>-->
+<!--        <field name="view_type">form</field>-->
+<!--        <field name="target">inline</field>-->
+<!--    </record>-->
+
+    <record id="action_res_actual_user" model="ir.actions.server">
+        <field name="name">Actual user</field>
+        <field name="condition">True</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_open_current_user()
+        </field>
+    </record>
+
+    <menuitem action="action_res_actual_user" id="menu_action_actual_user" parent="base.menu_users"
+              groups="base.group_no_one" sequence="2"/>
+
+</odoo>
